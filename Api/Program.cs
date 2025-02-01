@@ -13,11 +13,11 @@ builder.Services.AddSingleton<IExchangeExecutionPlanService, ExchangeExecutionPl
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MetaExchange API v1"));
-}
+//}
 
 app.UseAuthorization();
 app.MapControllers();
