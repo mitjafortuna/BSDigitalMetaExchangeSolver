@@ -116,7 +116,7 @@ public class ExchangeExecutionPlanServiceTests
     }
 
     [Test]
-    public void SellOrder_ShouldSellOnMultipleExchangesSinceThePriciesExchangeDoesNotHaveEnoughBalance()
+    public void SellOrder_ShouldSellOnMultipleExchangesSinceThePricesExchangeDoesNotHaveEnoughBalance()
     {
         var service = new ExchangeExecutionPlanService();
 

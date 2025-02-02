@@ -20,12 +20,12 @@ To install and run the API application using Docker there are two options. Run i
 - Build and run it locally:
     - Build the Docker image:
         ```sh
-        docker build -t api-application .
+        docker build -t meta-exchange-api .
         ```
 
     - Run the Docker container:
         ```sh
-        docker run -d -p 8080:80 api-application
+        docker run -d -p 80:80 meta-exchange-api
         ```
 
 ## Usage
@@ -36,7 +36,7 @@ Once the Docker container is running, you can access the API at `http://localhos
 
 Open Swagger UI on the `http://localhost/swagger/index.html`. Click on `Try it out` button and then click `Execute` button.
 
-### Example Usage curl
+### Example Usage wit cURL
 
 1. Make a POST request to the `/api/metaexchange/execution-plan` endpoint with the required parameters:
 
@@ -83,4 +83,4 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request.
+Contributions are welcome! Please fork the repository and submit a pull request. Code can be formatted using the command `dotnet csharpier .` executed in the root of the repository.
