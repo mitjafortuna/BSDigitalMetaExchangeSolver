@@ -25,7 +25,8 @@ public class ExchangeExecutionPlanService : IExchangeExecutionPlanService
 
                 foreach (var (exchangeName, price, amount, balanceEUR) in sortedAsks)
                 {
-                    var maxAffordable = Math.Min(balanceEUR / price, amount);
+                    var unusedBalanceEUR = GetUnusedBalanceEUR(balanceEUR, exchangeName, executionPlan);
+                    var maxAffordable = Math.Min(unusedBalanceEUR / price, amount);
                     var tradeAmount = Math.Min(remainingAmount, maxAffordable);
                     if (tradeAmount <= 0)
                         continue;
@@ -47,7 +48,8 @@ public class ExchangeExecutionPlanService : IExchangeExecutionPlanService
 
                 foreach (var (exchangeName, price, amount, balanceBTC) in sortedBids)
                 {
-                    var tradeAmount = Math.Min(remainingAmount, Math.Min(amount, balanceBTC));
+                    var unusedBalanceBTC = GetUnusedBalanceBTC(balanceBTC, exchangeName, executionPlan);
+                    var tradeAmount = Math.Min(remainingAmount, Math.Min(amount, unusedBalanceBTC));
 
                     if (tradeAmount <= 0)
                         continue;
@@ -63,6 +65,20 @@ public class ExchangeExecutionPlanService : IExchangeExecutionPlanService
         }
 
         return executionPlan;
+    }
+
+    private decimal GetUnusedBalanceBTC(decimal startBalanceBTC, string exchangeName, List<ExecutionPlanItem> executionPlan)
+    {
+        return startBalanceBTC - executionPlan
+            .Where(e => e.ExchangeName == exchangeName)
+            .Sum(e => e.Amount);
+    }
+
+    private decimal GetUnusedBalanceEUR(decimal startBalanceEUR, string exchangeName, List<ExecutionPlanItem> executionPlan)
+    {
+        return startBalanceEUR - executionPlan
+            .Where(e => e.ExchangeName == exchangeName)
+            .Sum(e => e.Price * e.Amount);
     }
 
     private static void AddToExecutionPlan(
