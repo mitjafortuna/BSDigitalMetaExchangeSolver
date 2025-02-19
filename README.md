@@ -44,22 +44,6 @@ Open Swagger UI on the `http://localhost/swagger/index.html`. Click on `Try it o
     curl -X POST http://localhost/api/metaexchange/execution-plan\
     -H "Content-Type: application/json" \
     -d '{
-        "exchanges": [
-            {
-                "name": "ExchangeA",
-                "asks": [{"price": 35000, "amount": 1}],
-                "bids": [{"price": 34000, "amount": 1}],
-                "balanceEUR": 20000,
-                "balanceBTC": 1
-            },
-            {
-                "name": "ExchangeB",
-                "asks": [{"price": 35500, "amount": 1}],
-                "bids": [{"price": 34500, "amount": 1}],
-                "balanceEUR": 15000,
-                "balanceBTC": 0.5
-            }
-        ],
         "orderType": "Buy",
         "orderAmount": 0.5
     }'
@@ -69,11 +53,11 @@ Open Swagger UI on the `http://localhost/swagger/index.html`. Click on `Try it o
 
     ```json
     [
-        {
-            "exchangeName": "ExchangeA",
-            "price": 35000,
-            "amount": 0.5
-        }
+    {
+        "exchangeName": "Dud Bolt exchange 3012",
+        "price": 2955.03,
+        "amount": 0.5
+    }
     ]
     ```
 

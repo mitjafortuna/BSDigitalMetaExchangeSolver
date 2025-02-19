@@ -13,8 +13,7 @@ namespace ConsoleApp
             var service = services.GetRequiredService<IExchangeExecutionPlanService>();
             try
             {
-                var exchanges = GetExchanges();
-                var result = service.GetBestExecutionPlan(exchanges, OrderType.Buy, 0.3m);
+                var result = service.GetBestExecutionPlanAsync(OrderType.Buy, 3m).Result;
                 PrintResult(result);
             }
             catch (Exception ex)
@@ -34,31 +33,12 @@ namespace ConsoleApp
             }
         }
 
-        private static List<Exchange> GetExchanges()
-        {
-            return new List<Exchange>
-            {
-                new Exchange
-                {
-                    Name = "ExchangeA",
-                    Bids = new List<OrderBookEntry>
-                    {
-                        new() { Price = 99000m, Amount = 1m },
-                    },
-                    Asks = new List<OrderBookEntry>
-                    {
-                        new() { Price = 99100m, Amount = 1m },
-                    },
-                    BalanceBTC = 3m,
-                    BalanceEUR = 2000000m,
-                },
-            };
-        }
-
         private static ServiceProvider CreateServices()
         {
             var serviceProvider = new ServiceCollection()
-                .AddSingleton<IExchangeExecutionPlanService>(new ExchangeExecutionPlanService())
+                .AddSingleton<IExchangeExecutionPlanService>(
+                    new ExchangeExecutionPlanService(new ExchangesOrderBooksProvider())
+                )
                 .BuildServiceProvider();
 
             return serviceProvider;

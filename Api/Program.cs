@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetaExchange API", Version = "v1" });
 });
+builder.Services.AddSingleton<IExchangesOrderBooksProvider, ExchangesOrderBooksProvider>();
 builder.Services.AddSingleton<IExchangeExecutionPlanService, ExchangeExecutionPlanService>();
 
 var app = builder.Build();
